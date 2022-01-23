@@ -1,7 +1,6 @@
 import React from "react";
 import "./SignUp.css";
 import { useFormik } from "formik";
-import axios from "axios";
 
 const initialValues = {
   email: "",
@@ -9,9 +8,7 @@ const initialValues = {
   passwordConfirmation: "",
 };
 const onSubmit = (values) => {
-  axios.post("http://localhost:4000/register", values).then((res) => {
-    console.log(res.data);
-  });
+  console.log("form data", values);
 };
 const validate = (values) => {
   let errors = {};
