@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const PORT = process.env.PORT || 4000;
-const { sequelize } = require("./sequelize");
+const sequelize = require("./sequelize");
 const app = express();
 const bcrypt = require("bcrypt");
 
@@ -14,8 +14,9 @@ app.use(cors());
 app.post("/register", async (req, res) => {
   const { email, password } = req.body;
   const checkEmail = await sequelize.query(`
-SELECT * FROM users WHERE email = '${email}'
-`);
+  SELECT * FROM users WHERE email = '${email}'
+  `);
+
   if (checkEmail[1].rowCount !== 0) {
     res.status(500).send("User already exists");
   } else {
@@ -24,10 +25,16 @@ SELECT * FROM users WHERE email = '${email}'
     await sequelize.query(`
   INSERT INTO users(email,password)
   VALUES (
-      '${email}'
+      '${email}',
       '${passwordHash}'
   )
   `);
+
+    const userInfo = await sequelize.query(`
+      SELECT user_id FROM users WHERE email = '${email}'
+      `);
+    console.log("line 36 baby");
+    res.status(200).send(userInfo);
   }
 });
 
