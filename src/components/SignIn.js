@@ -2,38 +2,40 @@ import React from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 
-const initialValues = {
-  email: "",
-  password: "",
-};
-const onSubmit = (values) => {
-  axios
-    .post("http://localhost:4000/SignIn", values)
-    .then((res) => {
-      localStorage.setItem("id", res.data.userId);
-      localStorage.setItem("email", res.data.email);
-    })
-    .catch((err) => {
-      console.log(err.response.data);
-    });
-  //   console.log("form data", values);
-};
-const validate = (values) => {
-  let errors = {};
-  if (!values.password) {
-    errors.password = "Password is required";
-  }
+function SignIn(props) {
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+  const onSubmit = (values) => {
+    axios
+      .post("http://localhost:4000/SignIn", values)
+      .then((res) => {
+        localStorage.setItem("id", res.data.userId);
+        localStorage.setItem("email", res.data.email);
+        props.logFunction();
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+    //   console.log("form data", values);
+  };
+  const validate = (values) => {
+    let errors = {};
+    if (!values.password) {
+      errors.password = "Password is required";
+    }
 
-  if (!values.email) {
-    errors.email = "E-mail is required";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = "Invalid email format";
-  }
+    if (!values.email) {
+      errors.email = "E-mail is required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Invalid email format";
+    }
 
-  return errors;
-};
-
-function SignIn() {
+    return errors;
+  };
   const formik = useFormik({
     initialValues,
     onSubmit,

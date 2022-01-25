@@ -1,15 +1,26 @@
 import { Route, Routes } from "react-router";
 import "./App.css";
-import FirstContact from "./components/FirstContact";
-import SignIn from "./components/SignIn";
-import Signup from "./components/SignUp";
+import { useState, useEffect } from "react";
+import Dashboard from "./components/Dashboard";
+import LandingPage from "./components/LandingPage";
+
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const loginUser = () => setIsLoggedIn(!isLoggedIn);
+  useEffect(() => {
+    if (localStorage.getItem("id")) {
+      loginUser();
+    }
+  }, []);
   return (
     <div className="App">
-      <FirstContact />
       <Routes>
-        <Route path="SignUp" element={<Signup />} />
-        <Route path="SignIn" element={<SignIn />} />
+        <Route
+          path="*"
+          element={
+            isLoggedIn ? <Dashboard /> : <LandingPage logFunction={loginUser} />
+          }
+        />
       </Routes>
     </div>
   );

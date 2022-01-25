@@ -5,7 +5,6 @@ const PORT = process.env.PORT || 4000;
 const sequelize = require("./sequelize");
 const app = express();
 const bcrypt = require("bcrypt");
-const { send } = require("process");
 
 // middleware
 app.use(express.json());
