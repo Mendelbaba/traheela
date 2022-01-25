@@ -21,7 +21,8 @@ function NextSession() {
     <div>
       <div>
         <h1>{JSON.stringify(workoutA)}</h1>
-        <h2>{workoutA[0]["exercise"]}</h2>
+        {workoutA ? <h2>{workoutA[0]["exercise"]}</h2> : null}
+        {/* <h2>{workoutA[0]["exercise"]}</h2> */}
       </div>
     </div>
   );
