@@ -9,10 +9,16 @@ const initialValues = {
   passwordConfirmation: "",
 };
 const onSubmit = (values) => {
-  axios.post("http://localhost:4000/register", values).then((res) => {
-    console.log(res.data);
-  });
+  axios
+    .post("http://localhost:4000/register", values)
+    .then((res) => {
+      console.log(res.data);
+      localStorage.setItem("email", res.data[0][0].email);
+      localStorage.setItem("user_id", res.data[0][0].user_id);
+    })
+    .catch((err) => console.log(err.response.data));
 };
+
 const validate = (values) => {
   let errors = {};
 

@@ -1,0 +1,38 @@
+[
+{
+    "Workout-A": [
+        {
+            "exercise": "Squat",
+            "weight": 0
+        },
+        {
+            "exercise": "Bench",
+            "weight": 0
+        },
+        {
+            "exercise": "Barbell-Row",
+            "weight": 0
+        }
+    ]
+},
+{
+    "Workout-B": [
+        {
+            "exercise": "Squat",
+            "weight": 0
+        },
+        {
+            "exercise": "Overhead-Press",
+            "weight": 0
+        },
+        {
+            "exercise": "Deadlift",
+            "weight": 0
+        }
+    ]
+}
+
+ 
+
+
+]

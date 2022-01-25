@@ -7,7 +7,16 @@ const initialValues = {
   password: "",
 };
 const onSubmit = (values) => {
-  console.log("form data", values);
+  axios
+    .post("http://localhost:4000/SignIn", values)
+    .then((res) => {
+      localStorage.setItem("id", res.data.userId);
+      localStorage.setItem("email", res.data.email);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+  //   console.log("form data", values);
 };
 const validate = (values) => {
   let errors = {};
