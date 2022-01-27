@@ -1,11 +1,11 @@
 import React from "react";
 import NextSession from "./NextSession";
 
-function Dashboard() {
+function Dashboard(props) {
   return (
     <div>
       <h2>Heeeeeyyy</h2>
-      <NextSession />
+      <NextSession currentUser={props.currentUser} />
     </div>
   );
 }

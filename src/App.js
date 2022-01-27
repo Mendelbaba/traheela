@@ -5,10 +5,15 @@ import Dashboard from "./components/Dashboard";
 import LandingPage from "./components/LandingPage";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const loginUser = () => setIsLoggedIn(!isLoggedIn);
   useEffect(() => {
     if (localStorage.getItem("id")) {
+      setCurrentUser({
+        id: localStorage.getItem("id"),
+        email: localStorage.getItem("email"),
+      });
       loginUser();
     }
   }, []);
@@ -18,7 +23,11 @@ function App() {
         <Route
           path="*"
           element={
-            isLoggedIn ? <Dashboard /> : <LandingPage logFunction={loginUser} />
+            isLoggedIn ? (
+              <Dashboard currentUser={currentUser} />
+            ) : (
+              <LandingPage logFunction={loginUser} />
+            )
           }
         />
       </Routes>

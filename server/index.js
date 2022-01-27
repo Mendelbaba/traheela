@@ -23,20 +23,29 @@ app.post("/register", async (req, res) => {
   } else {
     const salt = bcrypt.genSaltSync(10);
     const passwordHash = bcrypt.hashSync(password, salt);
-    await sequelize.query(`
-  INSERT INTO users(email,password)
-  VALUES (
-      '${email}',
-      '${passwordHash}'
-  )
-  `);
-
-    const userInfo = await sequelize.query(`
-      SELECT user_id, email FROM users WHERE email = '${email}'
-      `);
-    console.log("line 36 baby");
-    res.status(200).send(userInfo);
+    await sequelize
+      .query(
+        `
+    INSERT INTO users(password, email)
+    VALUES (
+        '${passwordHash}',
+        '${email}'
+    )
+    `
+      )
+      .catch((err) => console.log(err));
   }
+  const userInfo = await sequelize.query(`
+    SELECT user_id, email FROM users WHERE email = '${email}'
+    `);
+  res.status(200).send(userInfo);
+
+  sequelize.query(`
+  INSERT INTO users_exercises(user_id, exercise_id, weight)
+  VALUES('${userInfo[0][0]["user_id"]}', 1, 45),
+  ('${userInfo[0][0]["user_id"]}', 2, 45),
+  ('${userInfo[0][0]["user_id"]}', 3, 45)
+  `);
 });
 
 // sign in endpoint.
@@ -65,12 +74,13 @@ app.post("/SignIn", async (req, res) => {
 });
 
 // next sesh endpoint
-app.get("/nextSession", async (req, res) => {
-  let session = await sequelize.query(
-    ` SELECT * FROM workouts WHERE name = '5X5'`
+app.get("/nextSession/:id", async (req, res) => {
+  let lifts = await sequelize.query(
+    `
+    SELECT * FROM users_exercises WHERE user_id = ${req.params.id} 
+    `
   );
-  session = JSON.parse(session[0][0].program);
-  res.status(200).send(session);
+  res.status(200).send(lifts);
 });
 
 app.listen(PORT, () => console.log(`server running on ${PORT}`));

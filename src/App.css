@@ -7,3 +7,7 @@
 .App {
   text-align: center;
 }
+
+.great-success {
+  background-color: rgb(183, 241, 183);
+}
