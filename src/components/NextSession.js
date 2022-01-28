@@ -45,10 +45,18 @@ function NextSession(props) {
       setDeadLiftSuccess(!deadLiftSuccess);
     }
 
-    if (e.target.className === "success-btn") {
-      e.target.className = "great-success";
-    } else if (e.target.className === "great-success") {
-      e.target.className = "success-btn";
+    if (e.target.id === "sq" && e.target.className === "success-btn") {
+      setsquatBtn("great-success");
+    } else if (e.target.id === "bp" && e.target.className === "success-btn") {
+      setbenchBtn("great-success");
+    } else if (e.target.id === "dl" && e.target.className === "success-btn") {
+      setdeadliftBtn("great-success");
+    } else if (e.target.id === "sq" && e.target.className === "great-success") {
+      setsquatBtn("success-btn");
+    } else if (e.target.id === "bp" && e.target.className === "great-success") {
+      setbenchBtn("success-btn");
+    } else if (e.target.id === "dl" && e.target.className === "great-success") {
+      setdeadliftBtn("success-btn");
     }
   };
 
@@ -75,27 +83,31 @@ function NextSession(props) {
     setSquatSuccess(false);
     setBenchSuccess(false);
     setDeadLiftSuccess(false);
+
+    setsquatBtn("success-btn");
+    setbenchBtn("success-btn");
+    setdeadliftBtn("success-btn");
   };
 
   return (
     <div>
       <form>
         <h2>Squat 5X5 {squatWeight} lbs</h2>
-        <button id="sq" className="success-btn" onClick={handleClick}>
+        <button id="sq" className={squatBtn} onClick={handleClick}>
           Completed
         </button>
       </form>
 
       <form>
         <h2>Bench Press 5X5 {benchWeight} lbs</h2>
-        <button id="bp" className="success-btn" onClick={handleClick}>
+        <button id="bp" className={benchBtn} onClick={handleClick}>
           Completed
         </button>
       </form>
 
       <form>
         <h2>Deadlift 5X5 {deadLiftWeight} lbs</h2>
-        <button id="dl" className="success-btn" onClick={handleClick}>
+        <button id="dl" className={deadliftBtn} onClick={handleClick}>
           Completed
         </button>
 
