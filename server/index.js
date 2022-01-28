@@ -83,4 +83,33 @@ app.get("/nextSession/:id", async (req, res) => {
   res.status(200).send(lifts);
 });
 
+// update user stats endpoint
+app.put(`/updateStats`, async (req, res) => {
+  //   console.log(req.body, req.body.newBench);
+  sequelize
+    .query(
+      `
+          UPDATE users_exercises SET weight = ${req.body.newSquat}  WHERE exercise_id = 1 AND user_id = ${req.body.id};
+          UPDATE users_exercises SET weight = ${req.body.newBench}  WHERE exercise_id = 2 AND user_id = ${req.body.id};
+          UPDATE users_exercises SET weight = ${req.body.newDeadlift}  WHERE exercise_id = 3 AND user_id = ${req.body.id};
+        `
+    )
+    .catch((err) => console.log(err));
+  res.status(200).send("complete");
+});
+
 app.listen(PORT, () => console.log(`server running on ${PORT}`));
+
+// INSERT INTO users_exercises(weight)
+// VALUES('${req.body.newBench}')
+//   WHERE user_id = '${req.body.id}' AND exercise_id = 2;
+
+//   INSERT INTO users_exercises(weight)
+//   VALUES('${req.body.newDeadlift}')
+//     WHERE user_id = '${req.body.id}' AND exercise_id = 3;
+
+// UPDATE users_exercises SET weight = ${req.body.newSquat}  WHERE exercise_id = 1 AND user_id = ${req.body.id};
+// UPDATE users_exercises SET weight = ${req.body.newBench}  WHERE exercise_id = 1 AND user_id = ${req.body.id};
+// UPDATE users_exercises SET weight = ${req.body.newDeadlift}  WHERE exercise_id = 1 AND user_id = ${req.body.id};
+
+// UPDATE users_exercises SET weight =   WHERE exercise_id = 1 AND user_id = 9;

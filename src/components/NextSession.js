@@ -2,10 +2,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 function NextSession(props) {
-  const [workoutA, setWorkoutA] = useState();
-  const [workoutB, setWorkoutB] = useState();
-  const [workout, setWorkout] = useState(workoutA);
-
   //   lifts states
   const [squatSuccess, setSquatSuccess] = useState(false);
   const [benchSuccess, setBenchSuccess] = useState(false);
@@ -14,37 +10,39 @@ function NextSession(props) {
   const [squatWeight, setSquatWeight] = useState(0);
   const [benchWeight, setBenchWeight] = useState(0);
   const [deadLiftWeight, setDeadLiftWeight] = useState(0);
+  //   buttton classes
+  const [squatBtn, setsquatBtn] = useState("success-btn");
+  const [benchBtn, setbenchBtn] = useState("success-btn");
+  const [deadliftBtn, setdeadliftBtn] = useState("success-btn");
 
   async function onPageLoad() {
     await axios
       .get(`http://localhost:4000/nextSession/${props.currentUser.id}`)
       .then((res) => {
-        console.log("res ====>", res.data[0][0].weight);
+        // console.log(res.data);
         const Squat = res.data[0][0].weight;
         const BenchPress = res.data[0][1].weight;
         const Deadlift = res.data[0][2].weight;
-
+        // console.log(Squat, BenchPress, Deadlift);
         setSquatWeight(Squat);
         setBenchWeight(BenchPress);
         setDeadLiftWeight(Deadlift);
-        console.log("SBD=====>", Squat, BenchPress, Deadlift);
       });
   }
 
   useEffect(() => {
     onPageLoad();
-    console.log(benchSuccess, squatSuccess, deadLiftSuccess);
   }, []);
 
   const handleClick = (e) => {
     e.preventDefault();
 
-    if (e.target.id === "dl") {
-      setDeadLiftSuccess(!deadLiftSuccess);
-    } else if (e.target.id === "sq") {
+    if (e.target.id === "sq") {
       setSquatSuccess(!squatSuccess);
     } else if (e.target.id === "bp") {
       setBenchSuccess(!benchSuccess);
+    } else if (e.target.id === "dl") {
+      setDeadLiftSuccess(!deadLiftSuccess);
     }
 
     if (e.target.className === "success-btn") {
@@ -52,6 +50,31 @@ function NextSession(props) {
     } else if (e.target.className === "great-success") {
       e.target.className = "success-btn";
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let newBench = benchSuccess ? benchWeight + 5 : benchWeight;
+    let newSquat = squatSuccess ? squatWeight + 5 : squatWeight;
+    let newDeadlift = deadLiftSuccess ? deadLiftWeight + 5 : deadLiftWeight;
+    let newstats = {
+      newBench,
+      newDeadlift,
+      newSquat,
+      id: `${props.currentUser.id}`,
+    };
+
+    axios.put(`http://localhost:4000/updateStats`, newstats).then((res) => {
+      console.log(res);
+    });
+    setTimeout(() => {
+      onPageLoad();
+    }, 500);
+
+    setSquatSuccess(false);
+    setBenchSuccess(false);
+    setDeadLiftSuccess(false);
   };
 
   return (
@@ -75,6 +98,8 @@ function NextSession(props) {
         <button id="dl" className="success-btn" onClick={handleClick}>
           Completed
         </button>
+
+        <button onClick={handleSubmit}>Submit</button>
       </form>
     </div>
   );
