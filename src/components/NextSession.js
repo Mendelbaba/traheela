@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
+import CustomLbs from "./CustomLbs";
+
 function NextSession(props) {
   //   lifts states
   const [squatSuccess, setSquatSuccess] = useState(false);
@@ -113,6 +115,16 @@ function NextSession(props) {
 
         <button onClick={handleSubmit}>Submit</button>
       </form>
+      {!deadLiftWeight ? null : (
+        <CustomLbs
+          benchWeight={benchWeight}
+          deadLiftWeight={deadLiftWeight}
+          squatWeight={squatWeight}
+          setBenchWeight={setBenchWeight}
+          setSquatWeight={setSquatWeight}
+          setDeadLiftWeight={setDeadLiftWeight}
+        />
+      )}
     </div>
   );
 }
