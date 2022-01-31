@@ -4,7 +4,7 @@ import NextSession from "./NextSession";
 function Dashboard(props) {
   return (
     <div>
-      <h2>Heeeeeyyy</h2>
+      <h2 style={{ fontFamily: "papyrus" }}>Traheela</h2>
       <NextSession currentUser={props.currentUser} />
     </div>
   );

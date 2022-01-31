@@ -115,6 +115,8 @@ function NextSession(props) {
 
         <button onClick={handleSubmit}>Submit</button>
       </form>
+      <div className="line-brk" />
+
       {!deadLiftWeight ? null : (
         <CustomLbs
           benchWeight={benchWeight}
