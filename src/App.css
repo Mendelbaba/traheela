@@ -11,3 +11,24 @@
 .great-success {
   background-color: rgb(183, 241, 183);
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#custom-lbs-sq {
+  visibility: hidden;
+  display: none;
+}
+
+#custom-lbs-bp {
+  visibility: hidden;
+  display: none;
+}
+
+#custom-lbs-dl {
+  visibility: hidden;
+  display: none;
+}
