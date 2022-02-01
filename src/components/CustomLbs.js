@@ -16,8 +16,6 @@ function CustomLbs(props) {
   const [bpId, setbpId] = useState("custom-lbs-bp");
   const [dlId, setdlId] = useState("custom-lbs-dl");
 
-  console.log(props.benchWeight);
-
   const initialValues = {
     squat: props.squatWeight,
     bench: props.benchWeight,
@@ -26,9 +24,6 @@ function CustomLbs(props) {
 
   const validate = (values) => {
     let errors = {};
-    if (isNaN(values.squat) === false) {
-      errors.squat = "Input must be a number";
-    }
   };
 
   const formik = useFormik({
