@@ -10,9 +10,9 @@ function Guides() {
         height="315"
         src="https://www.youtube.com/embed/Uv_DKDl7EjA"
         title="YouTube video player"
-        frameborder="0"
+        frameBorder="10"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
+        allowFullScreen
       ></iframe>
       <br />
       <h2>Bench guide</h2>
@@ -21,9 +21,9 @@ function Guides() {
         height="315"
         src="https://www.youtube.com/embed/vcBig73ojpE"
         title="YouTube video player"
-        frameborder="0"
+        frameBorder="10"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
+        allowFullScreen
       ></iframe>
       <br />
       <h2>Conventional Deadlift guide</h2>
@@ -32,9 +32,9 @@ function Guides() {
         height="315"
         src="https://www.youtube.com/embed/VL5Ab0T07e4"
         title="YouTube video player"
-        frameborder="0"
+        frameBorder="10"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
+        allowFullScreen
       ></iframe>
       <br />
       <h2>Sumo Deadlift guide</h2>
@@ -43,9 +43,9 @@ function Guides() {
         height="315"
         src="https://www.youtube.com/embed/XsrD5y8EIKU"
         title="YouTube video player"
-        frameborder="0"
+        frameBorder="10"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
+        allowFullScreen
       ></iframe>
     </div>
   );

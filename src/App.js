@@ -26,7 +26,10 @@ function App() {
             isLoggedIn ? (
               <Dashboard currentUser={currentUser} />
             ) : (
-              <LandingPage logFunction={loginUser} />
+              <LandingPage
+                setIsLoggedIn={setIsLoggedIn}
+                logFunction={loginUser}
+              />
             )
           }
         />

@@ -10,7 +10,10 @@ function LandingPage(props) {
     <div>
       <FirstContact />
       <Routes>
-        <Route path="SignUp" element={<SignUp />} />
+        <Route
+          path="SignUp"
+          element={<SignUp setIsLoggedIn={props.setIsLoggedIn} />}
+        />
         <Route
           path="SignIn"
           element={<SignIn logFunction={props.logFunction} />}

@@ -6,8 +6,7 @@ import "./FirstContact.css";
 function FirstContact() {
   return (
     <div>
-      <h2>traheela</h2>
-
+      <h2 style={{ fontFamily: "papyrus" }}>Traheela</h2>
       <div className="links">
         <Link to="SignIn">Sign In</Link>
         <Link to="SignUp">Sign Up</Link>

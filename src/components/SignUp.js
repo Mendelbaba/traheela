@@ -3,43 +3,83 @@ import "./SignUp.css";
 import { useFormik } from "formik";
 import axios from "axios";
 
-const initialValues = {
-  email: "",
-  password: "",
-  passwordConfirmation: "",
-};
-const onSubmit = (values) => {
-  axios
-    .post("http://localhost:4000/register", values)
-    .then((res) => {
-      console.log(res.data);
-      localStorage.setItem("email", res.data[0][0].email);
-      localStorage.setItem("user_id", res.data[0][0].user_id);
-    })
-    .catch((err) => console.log(err.response.data));
-};
+// const initialValues = {
+//   email: "",
+//   password: "",
+//   passwordConfirmation: "",
+// };
+// const onSubmit = (values) => {
+//   axios
+//     .post("http://localhost:4000/register", values)
+//     .then((res) => {
+//       console.log(res.data);
+//       localStorage.setItem("email", res.data[0][0].email);
+//       localStorage.setItem("user_id", res.data[0][0].user_id);
+//       props.setIsLoggeIn(true);
+//     })
+//     .catch((err) => console.log(err.response.data));
+// };
 
-const validate = (values) => {
-  let errors = {};
+// const validate = (values) => {
+//   let errors = {};
 
-  if (!values.email) {
-    errors.email = "E-mail address equired";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = "Invalid email format";
-  }
-  if (!values.password) {
-    errors.password = "Password is required";
-  }
-  if (!values.passwordConfirmation) {
-    errors.passwordConfirmation = "Password confirmation is required";
-  } else if (values.passwordConfirmation !== values.password) {
-    errors.passwordConfirmation = "Password fields must match";
-  }
+//   if (!values.email) {
+//     errors.email = "E-mail address equired";
+//   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+//     errors.email = "Invalid email format";
+//   }
+//   if (!values.password) {
+//     errors.password = "Password is required";
+//   }
+//   if (!values.passwordConfirmation) {
+//     errors.passwordConfirmation = "Password confirmation is required";
+//   } else if (values.passwordConfirmation !== values.password) {
+//     errors.passwordConfirmation = "Password fields must match";
+//   }
 
-  return errors;
-};
+//   return errors;
+// };
 
-function Signup() {
+function Signup(props) {
+  const initialValues = {
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+  };
+  const onSubmit = (values) => {
+    axios
+      .post("http://localhost:4000/register", values)
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("email", res.data[0][0].email);
+        localStorage.setItem("user_id", res.data[0][0].user_id);
+        props.setIsLoggedIn(true);
+      })
+      .catch((err) => console.log(err.response.data));
+  };
+
+  const validate = (values) => {
+    let errors = {};
+
+    if (!values.email) {
+      errors.email = "E-mail address equired";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Invalid email format";
+    }
+    if (!values.password) {
+      errors.password = "Password is required";
+    }
+    if (!values.passwordConfirmation) {
+      errors.passwordConfirmation = "Password confirmation is required";
+    } else if (values.passwordConfirmation !== values.password) {
+      errors.passwordConfirmation = "Password fields must match";
+    }
+
+    return errors;
+  };
+
   const formik = useFormik({
     initialValues,
     onSubmit,

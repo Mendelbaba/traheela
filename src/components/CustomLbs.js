@@ -2,19 +2,37 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 
 function CustomLbs(props) {
-  const onSubmit = (values) => {
-    props.setSquatWeight(values.squat);
-    console.log(values);
+  //   const onSubmit = (values) => {
+  //     props.setSquatWeight(values.squat);
 
-    props.setBenchWeight(values.bench);
+  //     props.setBenchWeight(values.bench);
 
-    props.setDeadLiftWeight(values.deadlift);
-  };
+  //     props.setDeadLiftWeight(values.deadlift);
+  //   };
 
   //   custom lbs button id's
   const [sqId, setsqId] = useState("custom-lbs-sq");
   const [bpId, setbpId] = useState("custom-lbs-bp");
   const [dlId, setdlId] = useState("custom-lbs-dl");
+
+  const [submitSq, setsubmitSq] = useState("");
+  const [submitBp, setsubmitBp] = useState("");
+  const [submitDl, setsubmitDl] = useState("");
+
+  const onSubmitSq = (e) => {
+    e.preventDefault();
+    props.setSquatWeight(parseInt(submitSq));
+  };
+
+  const onSubmitBp = (e) => {
+    e.preventDefault();
+    props.setBenchWeight(parseInt(submitBp));
+  };
+
+  const onSubmitDl = (e) => {
+    e.preventDefault();
+    props.setDeadLiftWeight(parseInt(submitDl));
+  };
 
   const initialValues = {
     squat: props.squatWeight,
@@ -28,7 +46,7 @@ function CustomLbs(props) {
 
   const formik = useFormik({
     initialValues,
-    onSubmit,
+    // onSubmit,
     validate,
   });
 
@@ -67,7 +85,7 @@ function CustomLbs(props) {
       <input type="text" id="squat" placeholder="Enter a number" />
       <button onClick={handleClick}>lbs</button> */}
       <div id={sqId}>
-        <form onSubmit={formik.handleSubmit}>
+        <form>
           <label htmlFor="squat">Squat</label>
           <input
             type="number"
@@ -75,15 +93,13 @@ function CustomLbs(props) {
             name="squat"
             min="1"
             max="1200"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.squat}
+            onChange={(e) => setsubmitSq(e.target.value)}
           />
-          <button type="submit">Submit</button>
+          <button onClick={onSubmitSq}>Submit</button>
         </form>
       </div>
       <div id={bpId}>
-        <form onSubmit={formik.handleSubmit}>
+        <form>
           <label htmlFor="bench">Bench</label>
           <input
             type="number"
@@ -91,15 +107,13 @@ function CustomLbs(props) {
             name="bench"
             min="1"
             max="1200"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.bench}
+            onChange={(e) => setsubmitBp(e.target.value)}
           />
-          <button type="submit">Submit</button>
+          <button onClick={onSubmitBp}>Submit</button>
         </form>
       </div>
       <div id={dlId}>
-        <form onSubmit={formik.handleSubmit}>
+        <form>
           <label htmlFor="deadlift">Deadlift</label>
           <input
             type="number"
@@ -107,11 +121,9 @@ function CustomLbs(props) {
             name="deadlift"
             min="1"
             max="1100"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.deadlift}
+            onChange={(e) => setsubmitDl(e.target.value)}
           />
-          <button type="submit">Submit</button>
+          <button onClick={onSubmitDl}>Submit</button>
         </form>
       </div>
     </div>
